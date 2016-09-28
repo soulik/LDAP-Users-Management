@@ -10,7 +10,7 @@ Config::Simple->import_from('./.config/ext-vpn-users/main.conf', \%CONFIG);
 my $ldap = ITA::LDAP->new($CONFIG{'LDAP.url'}, $CONFIG{'LDAP.base_dn'}, $CONFIG{'LDAP.principal'}, $CONFIG{'LDAP.password'});
 my $db = ITA::DB->new($CONFIG{'DB.hostname'}, $CONFIG{'DB.username'}, $CONFIG{'DB.password'}, $CONFIG{'DB.dbname'}, $CONFIG{'DB.driver'});
 
-my $res = $ldap->search('(CN=sap-user-*)');
+my $res = $ldap->search($CONFIG{'DB.hostname'});
 my @attributes = qw(distinguishedName displayName name memberof whencreated whenchanged logoncount lastlogontimestamp accountExpires);
 
 foreach $entry (@$res) {
